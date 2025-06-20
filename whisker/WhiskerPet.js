@@ -215,13 +215,13 @@ export class WhiskerPet {
       if (autonomousToggle) this.behaviors.autonomous = autonomousToggle.checked;
       
       this.saveGameData();
-      showNotification('✅ Pengaturan tersimpan!', 'success'); // <-- perbaiki di sini
+      showNotification('✅ Pengaturan tersimpan!', 'success'); 
   }
   
   toggleSound() {
     this.soundEnabled = !this.soundEnabled;
     showNotification(this.soundEnabled ? '🔊 Suara diaktifkan' : '🔇 Suara dimatikan', 'info');
-    // (Opsional) update tampilan tombol
+    
     const soundBtn = document.getElementById('soundBtn');
     if (soundBtn) {
       soundBtn.textContent = this.soundEnabled ? '🔊 Suara' : '🔇 Suara';
@@ -232,7 +232,7 @@ export class WhiskerPet {
     if (this.behaviors.activityCooldowns[action] > Date.now()) return;
     const data = getActionData(action);
     Object.entries(data.statChanges).forEach(([s, v]) => this.updateStat(s, v));
-    setAnimation(this, data.animation, data.duration, data.felixSays); // Kirim felixSays!
+    setAnimation(this, data.animation, data.duration, data.felixSays); 
     this.felixScore += data.scoreGain;
     this.totalActions++;
     this.behaviors.activityCooldowns[action] = Date.now() + data.cooldown;
@@ -249,7 +249,7 @@ export class WhiskerPet {
     const mins = String(Math.floor((elapsed % 3600000) / 60000)).padStart(2, '0');
     const secs = String(Math.floor((elapsed % 60000) / 1000)).padStart(2, '0');
     updateElementText('gameClock', `${hrs}:${mins}:${secs}`);
-    updateElementText('playTime', `${hrs}:${mins}:${secs}`); // Tambahkan baris ini
+    updateElementText('playTime', `${hrs}:${mins}:${secs}`); 
   }
 
   updateUI() {

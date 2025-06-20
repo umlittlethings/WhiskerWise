@@ -1,5 +1,5 @@
-const { fromEvent, interval, merge } = rxjs;
-const { takeUntil, filter, throttleTime } = rxjs.operators;
+const { interval } = rxjs;
+const { takeUntil} = rxjs.operators;
 
 export function startGameLoops(instance) {
   interval(1000)

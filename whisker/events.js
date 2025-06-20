@@ -1,5 +1,5 @@
-const { fromEvent, interval, merge } = rxjs;
-const { takeUntil, filter, throttleTime } = rxjs.operators;
+const { fromEvent } = rxjs;
+const { takeUntil, filter } = rxjs.operators;
 
 export function setupEventListenersRx(instance) {
   const buttonMap = [
