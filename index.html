@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WhiskerWise - Virtual Pet Felix</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/rxjs@^7/dist/bundles/rxjs.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="game-header">
+        <div class="app-logo">
+          <span class="logo-icon">🐱</span>
+          <div class="logo-text">
+            <h1>WhiskerWise</h1>
+            <p>Virtual Pet Experience</p>
+          </div>
+        </div>
+        <div class="game-clock" id="gameClock">00:00:00</div>
+      </div>
+
+      <div class="status-card">
+        <div class="pet-info">
+          <div class="pet-avatar">
+            <span class="avatar-emoji">😺</span>
+          </div>
+          <div class="pet-details">
+            <h2 class="pet-name">Felix</h2>
+            <div class="pet-mood" id="petMood">😊 Senang</div>
+            <div class="pet-activity" id="petActivity">Siap bermain</div>
+          </div>
+          <div class="pet-level">
+            <div class="level-badge" id="levelBadge">Lv. 1</div>
+          </div>
+        </div>
+        <div class="status-alerts" id="statusAlerts"></div>
+      </div>
+
+      <div class="felix-stage">
+        <div class="stage-background">
+          <div class="background-elements">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="sun"></div>
+          </div>
+        </div>
+
+        <div class="felix-container" id="felixContainer">
+          <div class="felix-sprite" id="felixSprite">
+            <img
+              class="sprite-image"
+              id="spriteImage"
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIxNSIgZmlsbD0iIzg3Q0VFQiIvPjx0ZXh0IHg9IjUwIiB5PSI0NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjMwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5i6PC90ZXh0Pjx0ZXh0IHg9IjUwIiB5PSI3NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjMzMzIj5TQU5UQUk8L3RleHQ+PC9zdmc+"
+              alt="Felix"
+            />
+          </div>
+
+          <div class="speech-bubble" id="speechBubble">
+            <div class="bubble-text" id="bubbleText">Halo! 👋</div>
+          </div>
+
+          <div class="emotion-indicators" id="emotionIndicators"></div>
+        </div>
+
+        <div class="interactive-elements">
+          <div class="food-bowl" id="foodBowl">🍽️</div>
+          <div class="toy-ball" id="toyBall">🎾</div>
+          <div class="pet-bed" id="petBed">🛏️</div>
+        </div>
+      </div>
+
+      <div class="stats-panel">
+        <h3 class="panel-title">📊 Status Felix</h3>
+        <div class="stats-grid">
+          <div class="stat-card hunger-card">
+            <div class="stat-icon">🍽️</div>
+            <div class="stat-info">
+              <div class="stat-name">Lapar</div>
+              <div class="stat-bar">
+                <div class="stat-fill hunger-fill" id="hungerFill"></div>
+                <div class="stat-text" id="hungerText">100%</div>
+              </div>
+              <div class="stat-detail">Turun -2 setiap 8 detik</div>
+            </div>
+          </div>
+
+          <div class="stat-card happiness-card">
+            <div class="stat-icon">😊</div>
+            <div class="stat-info">
+              <div class="stat-name">Kebahagiaan</div>
+              <div class="stat-bar">
+                <div class="stat-fill happiness-fill" id="happinessFill"></div>
+                <div class="stat-text" id="happinessText">100%</div>
+              </div>
+              <div class="stat-detail">Turun -1 setiap 12 detik</div>
+            </div>
+          </div>
+
+          <div class="stat-card energy-card">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-info">
+              <div class="stat-name">Energi</div>
+              <div class="stat-bar">
+                <div class="stat-fill energy-fill" id="energyFill"></div>
+                <div class="stat-text" id="energyText">100%</div>
+              </div>
+              <div class="stat-detail">Turun -1 setiap 15 detik</div>
+            </div>
+          </div>
+
+          <div class="stat-card health-card">
+            <div class="stat-icon">❤️</div>
+            <div class="stat-info">
+              <div class="stat-name">Kesehatan</div>
+              <div class="stat-bar">
+                <div class="stat-fill health-fill" id="healthFill"></div>
+                <div class="stat-text" id="healthText">100%</div>
+              </div>
+              <div class="stat-detail">Dipengaruhi stats lain</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-panel">
+        <h3 class="panel-title">🎮 Rawat Felix</h3>
+        <div class="action-grid">
+          <button class="action-btn feed-btn" id="feedBtn" data-action="feed">
+            <div class="btn-icon">🍎</div>
+            <div class="btn-label">Beri Makan</div>
+            <div class="btn-effect">+25 Lapar</div>
+            <div class="btn-cooldown" id="feedCooldown"></div>
+          </button>
+
+          <button class="action-btn play-btn" id="playBtn" data-action="play">
+            <div class="btn-icon">🎾</div>
+            <div class="btn-label">Bermain</div>
+            <div class="btn-effect">+30 Senang</div>
+            <div class="btn-cooldown" id="playCooldown"></div>
+          </button>
+
+          <button
+            class="action-btn sleep-btn"
+            id="sleepBtn"
+            data-action="sleep"
+          >
+            <div class="btn-icon">😴</div>
+            <div class="btn-label">Tidur</div>
+            <div class="btn-effect">+35 Energi</div>
+            <div class="btn-cooldown" id="sleepCooldown"></div>
+          </button>
+
+          <button class="action-btn heal-btn" id="healBtn" data-action="heal">
+            <div class="btn-icon">💊</div>
+            <div class="btn-label">Obati</div>
+            <div class="btn-effect">+40 Sehat</div>
+            <div class="btn-cooldown" id="healCooldown"></div>
+          </button>
+
+          <button class="action-btn pet-btn" id="petBtn" data-action="pet">
+            <div class="btn-icon">👋</div>
+            <div class="btn-label">Elus</div>
+            <div class="btn-effect">+10 Senang</div>
+            <div class="btn-cooldown" id="petCooldown"></div>
+          </button>
+
+          <button
+            class="action-btn groom-btn"
+            id="groomBtn"
+            data-action="groom"
+          >
+            <div class="btn-icon">🧼</div>
+            <div class="btn-label">Bersihkan</div>
+            <div class="btn-effect">+15 Sehat</div>
+            <div class="btn-cooldown" id="groomCooldown"></div>
+          </button>
+        </div>
+      </div>
+
+      <div class="info-panel">
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-icon">⏱️</span>
+            <span class="info-label">Waktu Bermain</span>
+            <span class="info-value" id="playTime">00:00:00</span>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🎯</span>
+            <span class="info-label">Total Aksi</span>
+            <span class="info-value" id="totalActions">0</span>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">⭐</span>
+            <span class="info-label">Felix Score</span>
+            <span class="info-value" id="felixScore">0</span>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🏆</span>
+            <span class="info-label">Status</span>
+            <span class="info-value" id="gameStatus">Pemula</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-panel">
+        <div class="tips-section" id="tipsSection">
+          <h4>💡 Tips Hari Ini</h4>
+          <p id="dailyTip">Felix suka bermain setelah makan!</p>
+        </div>
+        <div class="controls-section">
+          <button class="control-btn" id="settingsBtn">⚙️ Pengaturan</button>
+          <button class="control-btn" id="soundBtn">🔊 Suara</button>
+          <button class="control-btn" id="helpBtn">❓ Bantuan</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-content">
+        <div class="loading-felix">🐱</div>
+        <h2>WhiskerWise</h2>
+        <p>Memuat Felix...</p>
+        <div class="loading-bar">
+          <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
